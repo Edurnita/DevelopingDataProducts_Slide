@@ -17,15 +17,19 @@ Author : Edurne Alonso Moran
 
 ## Introduction
 
-A dataset containing 13 chemical measurements on <span style="color:green; font-weight:bold">178 Italian wine samples</span> is analyzed. These data are the results of a chemical analysis of wines grown in the same region in Italy but derived from three different cultivars.
+A dataset containing 13 chemical measurements (Alcohol, Malic acid, Ash, Alcalinity of ash, Magnesium, Total phenols, Flavanoids, Nonflavanoid phenols, Proanthocyanins, Color intensity, Hue, OD280/OD315 of diluted wines and Proline) on <span style="color:green; font-weight:bold">178 Italian wine samples</span> is analyzed. 
+
+These data are the results of a chemical analysis of wines grown in the same region in Italy but derived from three different cultivars.
 
 --- .class #id
 
 ## Methodology
 
-1) For building the shiny app, a <span style="color:green; font-weight:bold">K-means cluster</span> of the data is performed. The number of clusters is determined by user. 
+1) A <span style="color:green; font-weight:bold">K-means cluster</span> of the data is performed. This algorithm is the most common partitioning method and aims to partition n observations into <span style="color:green; font-weight:bold">k</span> clusters in which each observation belongs to the cluster with the nearest mean, serving as a prototype of the cluster. This results in a partitioning of the data space into Voronoi cells.
 
-2) Since K-means cluster analysis starts with <span style="color:green; font-weight:bold">k randomly chosen centroids</span>, a different solution can be obtained each time the function is invoked. Indeed, the variables vary in range, so they are <b>standardized</b> prior to clustering.
+2) Since K-means cluster analysis starts with <span style="color:green; font-weight:bold">k randomly chosen centroids</span>, a different solution can be obtained each time the function is invoked. Indeed, the variables vary in range, so they are <span style="color:green; font-weight:bold">standardized</span> prior to clustering.
+
+3) In the shiny app, the number of clusters (<span style="color:green; font-weight:bold">k</span>) is determined by user and the cluster graph is drawn each time the user changes the number of clusters. 
 
 --- &twocol 
 
@@ -54,13 +58,14 @@ ordihull(cmd,factor(c$cluster),lty="dotted")
 ```
 
 *** =right
-R plot
+R plot (fixed to 3 cluster)
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 ---
 
 ## My Shiny App
 
-The image of the shiny app designed is the following one:
+Then, I have implemented the code shown before using an interactive web application - Shiny. This is a new package from RStudio that makes it incredibly easy with R.
 
-![](assets/img/shinyapp.png)
+The <span style="color:green; font-weight:bold">application</span> designed for this project can be found in the following url:
+https://edurnita.shinyapps.io/my_app
