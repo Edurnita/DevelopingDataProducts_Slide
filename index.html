@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The wine example using K-Means (Clustering technique)</title>
+  <meta name="description" content="">
+  <meta name="author" content="Edurne Alonso Morán">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/reveal.min.css">
+  <link rel="stylesheet" href="libraries/frameworks/revealjs/css/theme/default.css" id="theme">
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" id="theme">
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->  <link rel="stylesheet" href = "assets/css/ribbons.css">
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class='' data-state='' id='slide-1'>
+  <h2>The wine example using K-Means (Clustering technique)</h2>
+  <p>Author : Edurne Alonso Moran</p>
+
+</section>
+<section class='' data-state='' id='slide-2'>
+  <h2>Introduction</h2>
+  <p>A dataset containing 13 chemical measurements on <span style="color:green; font-weight:bold">178 Italian wine samples</span> is analyzed. These data are the results of a chemical analysis of wines grown in the same region in Italy but derived from three different cultivars.</p>
+
+</section>
+<section class='class' data-state='' id='id'>
+  <h2>Methodology</h2>
+  <p>1) For building the shiny app, a <span style="color:green; font-weight:bold">K-means cluster</span> of the data is performed. The number of clusters is determined by user. </p>
+
+<p>2) Since K-means cluster analysis starts with <span style="color:green; font-weight:bold">k randomly chosen centroids</span>, a different solution can be obtained each time the function is invoked. Indeed, the variables vary in range, so they are <b>standardized</b> prior to clustering.</p>
+
+</section>
+<section class='' data-state='' id='slide-4'>
+  <h2>R code and plot</h2>
+  
+<div style='float:left;width:48%;' class='centered'>
+  <p>R code</p>
+
+<pre><code class="r">data(wine)
+df&lt;-scale(wine[-1])
+c&lt;-kmeans(df,3)
+cmd&lt;-cmdscale(dist(df))
+groups&lt;-levels(factor(c$cluster))
+ordiplot(cmd)
+for(i in seq_along(groups)){
+  points(cmd[factor(c$cluster)==groups[i],],col=i,pch=16)}
+ordispider(cmd,factor(c$cluster),label=TRUE)
+ordihull(cmd,factor(c$cluster),lty=&quot;dotted&quot;)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>R plot
+<img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+</div>
+<div>
+  
+</div>
+</section>
+<section class='' data-state='' id='slide-5'>
+  <h2>My Shiny App</h2>
+  <p>The image of the shiny app designed is the following one:</p>
+
+<p><img src="assets/img/shinyapp.png" alt=""></p>
+
+</section>
+    </div>
+  </div>
+</body>
+  <script src="libraries/frameworks/revealjs/lib/js/head.min.js"></script>
+  <script src="libraries/frameworks/revealjs/js/reveal.min.js"></script>
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    theme: Reveal.getQueryHash().theme || 'default', 
+    transition: Reveal.getQueryHash().transition || 'default', 
+    dependencies: [
+    // Cross-browser shim that fully implements classList -
+    // https://github.com/eligrey/classList.js/
+      { src: 'libraries/frameworks/revealjs/lib/js/classList.js', condition: function() { return !document.body.classList;}},
+      // Zoom in and out with Alt+click
+      { src: 'libraries/frameworks/revealjs/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Speaker notes
+      { src: 'libraries/frameworks/revealjs/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+      // Remote control your reveal.js presentation using a touch device
+      //{ src: 'libraries/frameworks/revealjs/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+      ]
+  });
+  </script>  <!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+ 
+
+</html>
